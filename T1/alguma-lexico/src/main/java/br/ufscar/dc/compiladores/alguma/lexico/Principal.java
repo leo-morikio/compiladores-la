@@ -1,51 +1,53 @@
-// Classe principal responsável por executar o analisador léxico
+package br.ufscar.dc.compiladores.alguma.lexico;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import org.antlr.v4.runtime.CharStream;
+import org.antlr.v4.runtime.CharStreams;
+import org.antlr.v4.runtime.Token;
+import br.ufscar.dc.compiladores.AlgumaLexer;
+
 public class Principal {
 
     public static void main(String[] args) {
-
-        // Verifica se os argumentos obrigatórios foram passados
-        // args[0] = arquivo de entrada
-        // args[1] = arquivo de saída
         if (args.length < 2) {
             System.err.println("Uso: programa <arquivo-entrada> <arquivo-saida>");
             return;
         }
 
         try {
-            // Leitura do arquivo de entrada
             CharStream cs = CharStreams.fromFileName(args[0]);
-
-            // Inicialização do lexer gerado pelo ANTLR
             AlgumaLexer lex = new AlgumaLexer(cs);
-
-            // Escrita no arquivo de saída
             PrintWriter pw = new PrintWriter(args[1]);
 
             Token t = null;
+            boolean erro = false;
 
-            // Percorre todos os tokens até EOF
             while ((t = lex.nextToken()).getType() != Token.EOF) {
 
-                // Tratamento de comentário não fechado
+                // Comentário não fechado
                 if (t.getType() == AlgumaLexer.COMENTARIO_NAO_FECHADO) {
                     pw.printf("Linha %d: comentario nao fechado%n", t.getLine());
+                    erro = true;
                     break;
                 }
 
-                // Tratamento de cadeia não fechada
+                // Cadeia não fechada na mesma linha
                 if (t.getType() == AlgumaLexer.CADEIA_NAO_FECHADA) {
                     pw.printf("Linha %d: cadeia literal nao fechada%n", t.getLine());
+                    erro = true;
                     break;
                 }
 
-                // Tratamento de símbolo inválido
+                // Símbolo não identificado
                 if (t.getType() == AlgumaLexer.ERRO) {
                     pw.printf("Linha %d: %s - simbolo nao identificado%n",
                             t.getLine(), t.getText());
+                    erro = true;
                     break;
                 }
 
-                // Impressão do token válido no formato exigido
+                // Token válido
                 String nomeToken = nomeToken(t);
                 pw.printf("<'%s',%s>%n", t.getText(), nomeToken);
             }
@@ -57,7 +59,6 @@ public class Principal {
         }
     }
 
-    // Método auxiliar para mapear tipos de token para nomes esperados na saída
     private static String nomeToken(Token t) {
         switch (t.getType()) {
             case AlgumaLexer.IDENT:     return "IDENT";
