@@ -1,0 +1,11 @@
+# IntelliJ
+.idea/
+
+# Maven
+target/
+
+# arquivos compilados
+*.class
+
+# MacOS
+.DS_Store
