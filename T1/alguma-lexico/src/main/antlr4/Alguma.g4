@@ -1,5 +1,9 @@
 grammar Alguma;
 
+@header {
+    package br.ufscar.dc.compiladores;
+}
+
 // --- REGRAS SINTÁTICAS (Traduzidas do PDF) ---
 
 programa : declaracoes 'algoritmo' corpo 'fim_algoritmo' EOF ;
