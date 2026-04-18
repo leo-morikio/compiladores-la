@@ -127,4 +127,6 @@ NUM_REAL : ('0'..'9')+ '.' ('0'..'9')+ ;
 CADEIA : '"' (~('\n'|'"'))* '"' ;
 COMENTARIO : '{' (~('}'|'\n'))* '}' -> skip ;
 WS : (' '|'\t'|'\r'|'\n') -> skip ;
+CADEIA_NAO_FECHADA : '"' (~('\n'|'"'))* '\n' ;
+COMENTARIO_NAO_FECHADO : '{' (~('}'|'\n'))* '\n' ;
 ERRO : . ; // Mantém para detectar erros léxicos do T1
