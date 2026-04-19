@@ -1,3 +1,6 @@
+// Captura de argumentos de linha de comando para leitura e escrita em arquivos conforme especificação.
+// Configuração de Charset UTF-8 para garantir compatibilidade de caracteres especiais.
+
 package br.ufscar.dc.compiladores.alguma.lexico;
 
 import java.io.PrintWriter;
