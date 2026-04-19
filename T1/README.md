@@ -11,29 +11,27 @@ Este repositório centraliza os projetos desenvolvidos na disciplina de Constru�
 
 ## Status do Projeto
 
-O desenvolvimento do compilador é realizado de forma incremental, abrangendo as seguintes etapas concluídas:
+O desenvolvimento do compilador é realizado de forma incremental, abrangendo as seguintes etapas concluídas e validadas:
 
-1. **Trabalho 1 (Analisador Léxico):** Identificação de tokens, tratamento de símbolos não identificados, comentários e literais não fechados.
-2. **Trabalho 2 (Analisador Sintático):** Implementação da gramática completa utilizando ANTLR4, com suporte a registros, ponteiros, vetores e sub-rotinas.
+1. **Trabalho 1 (Analisador Léxico):** Implementação da análise de tokens, identificação de tipos, tratamento de símbolos não identificados, cadeias literais e comentários não fechados.
+2. **Trabalho 2 (Analisador Sintático):** Implementação da gramática completa utilizando ANTLR4, abrangendo a verificação sintática de registros, ponteiros, vetores e sub-rotinas (procedimentos e funções).
 
 ---
 
 ## Estrutura do Repositório
 
-De acordo com as diretrizes da disciplina para a manutenção de um histórico unificado, a estrutura está organizada da seguinte forma:
+Seguindo as diretrizes da disciplina para manutenção de um histórico unificado, o repositório está organizado da seguinte forma:
 
-- **[T1/](./T1/)**: Diretório que concentra a evolução dos trabalhos 1 e 2.
-- **[Projeto Java](./T1/alguma-lexico/)**: Pasta contendo o código-fonte, arquivos de configuração Maven (pom.xml) e a gramática (Alguma.g4).
-- **[casos-de-teste/](./casos-de-teste/)**: Suíte oficial de testes para validação dos analisadores.
-- **[corretor/](./corretor/)**: Ferramenta de correção automática fornecida para o projeto.
+- **Pasta T1/**: Concentra o código-fonte e a evolução dos trabalhos 1 e 2.
+- **Pasta T1/alguma-lexico/**: Contém os arquivos de configuração Maven (pom.xml), código-fonte Java e a gramática definida em ANTLR4 (Alguma.g4).
+- **Pasta casos-de-teste/**: Suíte oficial de testes utilizada para a validação dos analisadores.
+- **Pasta corretor/**: Ferramenta de correção automática utilizada para conferência dos resultados.
 
 ---
 
 ## Documentação e Execução
 
-As instruções detalhadas de requisitos de sistema, comandos para compilação via Maven e os parâmetros de execução via linha de comando exigidos para o Trabalho 2 podem ser acessadas no link abaixo:
-
-- [Instruções de Compilação e Execução (T2)](./README.md)
+As informações detalhadas sobre os pré-requisitos de sistema, comandos de compilação via Maven e os parâmetros obrigatórios de execução via linha de comando para o Trabalho 2 estão disponíveis no arquivo README.md localizado dentro da pasta T1.
 
 ---
 *UFSCar - 2026*
