@@ -33,7 +33,7 @@ De acordo com as diretrizes da disciplina para a manutenção de um histórico u
 
 As instruções detalhadas de requisitos de sistema, comandos para compilação via Maven e os parâmetros de execução via linha de comando exigidos para o Trabalho 2 podem ser acessadas no link abaixo:
 
-- [Instruções de Compilação e Execução (T2)](./T1/README.md)
+- [Instruções de Compilação e Execução (T2)](./README.md)
 
 ---
 *UFSCar - 2026*
