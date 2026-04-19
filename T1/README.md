@@ -1,97 +1,39 @@
-# Compilador LA — Trabalhos 1 e 2
+# Construção de Compiladores - UFSCar
 
-**Disciplina:** Construção de Compiladores  
-**Professor:** Daniel Lucrédio  
-**Instituição:** UFSCar - Universidade Federal de São Carlos  
-
----
+Este repositório centraliza os projetos desenvolvidos na disciplina de Construção de Compiladores da UFSCar, focados na criação de um compilador para a linguagem LA (Linguagem Algorítmica).
 
 ## Integrantes
-
-- Leonardo Poloni Berti Morikio - RA: 823832  
-- Matheus Marangoni Salomão - RA: 821684  
-- João Lucas Gomes Pelegrino - RA: 822033  
-
----
-
-## Descrição
-
-Este projeto contempla o desenvolvimento de um compilador para a Linguagem LA (Linguagem Algorítmica). O sistema está dividido em duas frentes principais:
-
-- **Analisador Léxico (T1):** Identificação de tokens e tratamento de erros (símbolos não identificados, cadeias e comentários não fechados).  
-- **Analisador Sintático (T2):** Verificação da estrutura gramatical, com suporte a registros, ponteiros, vetores e chamadas de funções/procedimentos.  
-
-O compilador foi desenvolvido em Java com o auxílio da ferramenta ANTLR4 e gerenciamento de dependências via Maven.
+- Leonardo Poloni Berti Morikio - RA: 823832
+- Matheus Marangoni Salomão - RA: 821684
+- João Lucas Gomes Pelegrino - RA: 822033
 
 ---
 
-## Documentação Externa (Requisitos e Execução)
+## Status do Projeto
 
-### Pré-requisitos
+O desenvolvimento do compilador é realizado de forma incremental, abrangendo as seguintes etapas concluídas:
 
-- Java JDK 17 ou superior  
-- Apache Maven 3.8 ou superior  
-
-### Como Compilar
-
-1. Acesse a pasta raiz do projeto (onde reside o arquivo `pom.xml`).  
-2. Execute o comando no terminal: mvn clean package  
-
-O Maven gerará um arquivo `.jar` na pasta `target/`, geralmente nomeado como `alguma-lexico-1.0-SNAPSHOT-jar-with-dependencies.jar`.
+1. **Trabalho 1 (Analisador Léxico):** Identificação de tokens, tratamento de símbolos não identificados, comentários e literais não fechados.
+2. **Trabalho 2 (Analisador Sintático):** Implementação da gramática completa utilizando ANTLR4, com suporte a registros, ponteiros, vetores e sub-rotinas.
 
 ---
 
-## Como Executar
+## Estrutura do Repositório
 
-O programa deve ser executado via linha de comando com dois argumentos obrigatórios:
+De acordo com as diretrizes da disciplina para a manutenção de um histórico unificado, a estrutura está organizada da seguinte forma:
 
-java -jar target/alguma-lexico-1.0-SNAPSHOT-jar-with-dependencies.jar <caminho_entrada> <caminho_saida>
-
----
-
-## Formato de Saída e Erros
-
-### Analisador Sintático (T2)
-
-Se houver erro, a análise é interrompida e reportada no arquivo de saída:
-
-- **Formato:**  
-  `Linha X: erro sintatico proximo a <lexema>`
-
-- **Sucesso:**  
-  `Fim da compilacao`
+- **[T1/](./T1/)**: Diretório que concentra a evolução dos trabalhos 1 e 2.
+- **[Projeto Java](./T1/alguma-lexico/)**: Pasta contendo o código-fonte, arquivos de configuração Maven (pom.xml) e a gramática (Alguma.g4).
+- **[casos-de-teste/](./casos-de-teste/)**: Suíte oficial de testes para validação dos analisadores.
+- **[corretor/](./corretor/)**: Ferramenta de correção automática fornecida para o projeto.
 
 ---
 
-### Analisador Léxico (T1)
+## Documentação e Execução
 
-Erros léxicos possuem prioridade e seguem as mensagens:
+As instruções detalhadas de requisitos de sistema, comandos para compilação via Maven e os parâmetros de execução via linha de comando exigidos para o Trabalho 2 podem ser acessadas no link abaixo:
 
-- `simbolo nao identificado`  
-- `cadeia literal nao fechada`  
-- `comentario nao fechado`  
+- [Instruções de Compilação e Execução (T2)](./T1/README.md)
 
 ---
-
-## Documentação Interna
-
-| Arquivo                 | Descrição |
-|------------------------|----------|
-| **Alguma.g4**          | Regras gramaticais da linguagem LA. Regra `identificador` otimizada para registros, ponteiros, ponteiros e vetores. |
-| **MeuErrorListener.java** | Extensão do `BaseErrorListener` do ANTLR para capturar e formatar erros sintáticos. |
-| **Principal.java**     | Gerencia o fluxo: leitura (`CharStreams`), Lexer/Parser, tratamento de exceções e escrita em UTF-8. |
-
----
-
-## Resultados
-
-O projeto foi validado utilizando a suíte de testes oficial da disciplina.
-
-- **Status:** Aprovado  
-- **Pontuação:** 62/62 casos de teste (100% de aproveitamento)  
-
----
-
-### Observação importante
-
-O projeto utiliza obrigatoriamente a codificação UTF-8 e o Maven gerencia as dependências do ANTLR automaticamente.
+*UFSCar - 2026*
