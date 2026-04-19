@@ -1,104 +1,97 @@
-# T1 — Analisador Léxico da Linguagem LA
+# Compilador LA — Trabalhos 1 e 2
 
 **Disciplina:** Construção de Compiladores  
-**Professor:** Daniel Lucrédio
+**Professor:** Daniel Lucrédio  
+**Instituição:** UFSCar - Universidade Federal de São Carlos  
+
+---
 
 ## Integrantes
 
-- Leonardo Poloni Berti Morikio - 823832
-- Matheus Marangoni Salomão - 821684
-- João Lucas Gomes Pelegrino - 822033
+- Leonardo Poloni Berti Morikio - RA: 823832  
+- Matheus Marangoni Salomão - RA: 821684  
+- João Lucas Gomes Pelegrino - RA: 822033  
 
 ---
 
 ## Descrição
 
-Este projeto consiste na implementação de um analisador léxico para a linguagem LA (Linguagem Algorítmica), utilizando a ferramenta ANTLR.
+Este projeto contempla o desenvolvimento de um compilador para a Linguagem LA (Linguagem Algorítmica). O sistema está dividido em duas frentes principais:
 
-O analisador é responsável por ler um arquivo contendo um programa em LA e produzir um arquivo de saída com a sequência de tokens identificados, conforme especificação do trabalho.
+- **Analisador Léxico (T1):** Identificação de tokens e tratamento de erros (símbolos não identificados, cadeias e comentários não fechados).  
+- **Analisador Sintático (T2):** Verificação da estrutura gramatical, com suporte a registros, ponteiros, vetores e chamadas de funções/procedimentos.  
 
----
-
-## Tecnologias utilizadas
-
-- Java
-- ANTLR
-- Maven
+O compilador foi desenvolvido em Java com o auxílio da ferramenta ANTLR4 e gerenciamento de dependências via Maven.
 
 ---
 
-## Compilação
+## Documentação Externa (Requisitos e Execução)
 
-Para compilar o projeto, utilize o Maven:
+### Pré-requisitos
 
-```bash
-mvn clean package
-```
+- Java JDK 17 ou superior  
+- Apache Maven 3.8 ou superior  
 
-O arquivo executável será gerado no diretório `target/`.
+### Como Compilar
 
----
+1. Acesse a pasta raiz do projeto (onde reside o arquivo `pom.xml`).  
+2. Execute o comando no terminal: mvn clean package  
 
-## Execução
-
-O programa deve ser executado via linha de comando com dois argumentos obrigatórios: o arquivo de entrada e o arquivo de saída.
-
-```bash
-java -jar target/alguma-lexico-1.0-SNAPSHOT.jar <arquivo_entrada> <arquivo_saida>
-```
-
-### Exemplo:
-
-```bash
-java -jar target/alguma-lexico-1.0-SNAPSHOT.jar entrada.txt saida.txt
-```
+O Maven gerará um arquivo `.jar` na pasta `target/`, geralmente nomeado como `alguma-lexico-1.0-SNAPSHOT-jar-with-dependencies.jar`.
 
 ---
 
-## Entrada
+## Como Executar
 
-Arquivo texto contendo código escrito na linguagem LA.
+O programa deve ser executado via linha de comando com dois argumentos obrigatórios:
 
----
-
-## Saída
-
-Arquivo texto contendo os tokens identificados, no seguinte formato:
-
-```
-<'lexema',TIPO>
-```
+java -jar target/alguma-lexico-1.0-SNAPSHOT-jar-with-dependencies.jar <caminho_entrada> <caminho_saida>
 
 ---
 
-## Tratamento de erros
+## Formato de Saída e Erros
 
-O analisador interrompe a execução ao encontrar o primeiro erro léxico.
+### Analisador Sintático (T2)
 
-Os seguintes tipos de erro são tratados:
+Se houver erro, a análise é interrompida e reportada no arquivo de saída:
 
-- Símbolo não identificado
-- Cadeia de caracteres não fechada
-- Comentário não fechado
+- **Formato:**  
+  `Linha X: erro sintatico proximo a <lexema>`
 
-### Exemplo:
-
-```
-Linha 5: ~ - simbolo nao identificado
-```
+- **Sucesso:**  
+  `Fim da compilacao`
 
 ---
 
-## Casos de teste
+### Analisador Léxico (T1)
 
-O analisador foi validado utilizando os casos de teste fornecidos na disciplina, obtendo sucesso em todos eles.
+Erros léxicos possuem prioridade e seguem as mensagens:
+
+- `simbolo nao identificado`  
+- `cadeia literal nao fechada`  
+- `comentario nao fechado`  
+
+---
+
+## Documentação Interna
+
+| Arquivo                 | Descrição |
+|------------------------|----------|
+| **Alguma.g4**          | Regras gramaticais da linguagem LA. Regra `identificador` otimizada para registros, ponteiros, ponteiros e vetores. |
+| **MeuErrorListener.java** | Extensão do `BaseErrorListener` do ANTLR para capturar e formatar erros sintáticos. |
+| **Principal.java**     | Gerencia o fluxo: leitura (`CharStreams`), Lexer/Parser, tratamento de exceções e escrita em UTF-8. |
 
 ---
 
-## Observações
+## Resultados
 
-- Espaços em branco são ignorados
-- Comentários não são considerados na geração de tokens
-- A saída é obrigatoriamente escrita em arquivo
+O projeto foi validado utilizando a suíte de testes oficial da disciplina.
+
+- **Status:** Aprovado  
+- **Pontuação:** 62/62 casos de teste (100% de aproveitamento)  
 
 ---
+
+### Observação importante
+
+O projeto utiliza obrigatoriamente a codificação UTF-8 e o Maven gerencia as dependências do ANTLR automaticamente.
