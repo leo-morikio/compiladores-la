@@ -14,12 +14,25 @@ public class MeuErrorListener extends BaseErrorListener {
         Token t = (Token) offendingSymbol;
         String tText = t.getText();
         
-        // O ANTLR usa <EOF> para o fim do arquivo, mas o padrão do trabalho pede apenas EOF
-        if (tText.equals("<EOF>")) {
+        // Conversão técnica exata para o fim de arquivo
+        if (t.getType() == Token.EOF) {
             tText = "EOF";
         }
+
+        int tipo = t.getType();
         
-        // Lança uma exceção com a mensagem formatada para ser capturada na classe Principal
+        // 1. Erros do T1 (Léxicos) - Obrigatório para passar no teste 10
+        if (tipo == AlgumaLexer.CADEIA_NAO_FECHADA) {
+            throw new RuntimeException("Linha " + line + ": cadeia literal nao fechada");
+        } 
+        else if (tipo == AlgumaLexer.COMENTARIO_NAO_FECHADO) {
+            throw new RuntimeException("Linha " + line + ": comentario nao fechado");
+        } 
+        else if (tipo == AlgumaLexer.ERRO) {
+            throw new RuntimeException("Linha " + line + ": " + tText + " - simbolo nao identificado");
+        }
+
+        // 2. Erros do T2 (Sintáticos) - Para os testes 44, 47, 48 e 53
         throw new RuntimeException("Linha " + line + ": erro sintatico proximo a " + tText);
     }
 }
