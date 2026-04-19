@@ -18,6 +18,8 @@ declaracao_local
     | 'tipo' IDENT ':' tipo 
     ;
 
+
+// Regra de identificador atualizada para suportar ponteiros (^), registros (.) e vetores ([]) de forma aninhada.
 variavel : identificador (',' identificador)* ':' tipo ;
 
 // Ajustado para aceitar: nome, ^nome, nome^, nome.campo, nome[0], p^.campo, etc.
