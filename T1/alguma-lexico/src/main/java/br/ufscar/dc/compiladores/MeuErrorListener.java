@@ -1,3 +1,5 @@
+// Customização das mensagens de erro para baterem exatamente com os casos de teste da UFSCar (ex: "erro sintatico proximo a...").
+
 package br.ufscar.dc.compiladores;
 
 import org.antlr.v4.runtime.BaseErrorListener;
@@ -21,7 +23,7 @@ public class MeuErrorListener extends BaseErrorListener {
 
         int tipo = t.getType();
         
-        // 1. Erros do T1 (Léxicos) - Obrigatório para passar no teste 10
+        // 1. Erros do T1 (Léxicos)
         if (tipo == AlgumaLexer.CADEIA_NAO_FECHADA) {
             throw new RuntimeException("Linha " + line + ": cadeia literal nao fechada");
         } 
@@ -32,7 +34,7 @@ public class MeuErrorListener extends BaseErrorListener {
             throw new RuntimeException("Linha " + line + ": " + tText + " - simbolo nao identificado");
         }
 
-        // 2. Erros do T2 (Sintáticos) - Para os testes 44, 47, 48 e 53
+        // 2. Erros do T2 (Sintáticos)
         throw new RuntimeException("Linha " + line + ": erro sintatico proximo a " + tText);
     }
 }
