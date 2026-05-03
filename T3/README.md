@@ -1,37 +1,80 @@
-# Construção de Compiladores - UFSCar
+# T3 - Analisador Semântico (Linguagem LA)
 
-Este repositório centraliza os projetos desenvolvidos na disciplina de Construção de Compiladores da UFSCar, focados na criação de um compilador para a linguagem LA (Linguagem Algorítmica).
-
-## Integrantes
-- Leonardo Poloni Berti Morikio - RA: 823832
-- Matheus Marangoni Salomão - RA: 821684
-- João Lucas Gomes Pelegrino - RA: 822033
+Este projeto consiste na implementação de um **Analisador Semântico** para a Linguagem Algorítmica (LA), desenvolvido como parte do Trabalho 3 da disciplina de Construção de Compiladores (DC/UFSCar).
 
 ---
 
-## Status do Projeto
+## 📌 Descrição e Regras Implementadas
 
-O desenvolvimento do compilador é realizado de forma incremental, abrangendo as seguintes etapas concluídas e validadas:
+O analisador processa o código-fonte e identifica erros semânticos **sem interromper a execução**, reportando-os até o final do arquivo.
 
-1. **Trabalho 1 (Analisador Léxico):** Implementação da análise de tokens, identificação de tipos, tratamento de símbolos não identificados, cadeias literais e comentários não fechados.
-2. **Trabalho 2 (Analisador Sintático):** Implementação da gramática completa utilizando ANTLR4, abrangendo a verificação sintática de registros, ponteiros, vetores e sub-rotinas (procedimentos e funções).
+As verificações incluem:
 
----
+### 🔎 Erros de Escopo
+- Identificadores (variáveis, constantes, funções, etc.) já declarados no mesmo escopo.
 
-## Estrutura do Repositório
+### ❌ Tipos Inexistentes
+- Uso de tipos que não foram previamente declarados.
 
-Seguindo as diretrizes da disciplina para manutenção de um histórico unificado, o repositório está organizado da seguinte forma:
+### ⚠️ Identificadores Não Declarados
+- Uso de variáveis ou sub-rotinas não definidas.
 
-- **Pasta T1/**: Concentra o código-fonte e a evolução dos trabalhos 1 e 2.
-- **Pasta T1/alguma-lexico/**: Contém os arquivos de configuração Maven (pom.xml), código-fonte Java e a gramática definida em ANTLR4 (Alguma.g4).
-- **Pasta casos-de-teste/**: Suíte oficial de testes utilizada para a validação dos analisadores.
-- **Pasta corretor/**: Ferramenta de correção automática utilizada para conferência dos resultados.
-
----
-
-## Documentação e Execução
-
-As informações detalhadas sobre os pré-requisitos de sistema, comandos de compilação via Maven e os parâmetros obrigatórios de execução via linha de comando para o Trabalho 2 estão disponíveis no arquivo README.md localizado dentro da pasta T1.
+### 🔄 Incompatibilidade de Tipos
+- Validação de atribuições (ex: `real` recebe `inteiro`)
+- Verificação de expressões (ex: impedir soma de literal com `logico`)
+- Compatibilidade de registros e ponteiros
 
 ---
-*UFSCar - 2026*
+
+## ⚙️ Pré-requisitos
+
+Certifique-se de ter instalado:
+
+- Java JDK 17 ou superior
+- Apache Maven 3.9.0 ou superior
+
+Para validar:
+
+```bash
+java -version
+mvn -version
+```
+
+## 🛠️ Compilação e Build
+- Na pasta raiz do projeto:
+
+```bash
+mvn clean package
+```
+
+- O arquivo gerado estará em:
+
+```bash
+target/alguma-semantico-1.0-SNAPSHOT-jar-with-dependencies.jar
+```
+
+## ▶️ Execução
+
+```bash
+java -jar target/alguma-semantico-1.0-SNAPSHOT-jar-with-dependencies.jar <arquivo_entrada> <arquivo_saida>
+```
+
+## ⚠️ O programa não imprime erros no terminal.
+- Todos os resultados são gravados no arquivo de saída.
+
+## 🧠 Organização do Código
+
+### 📁 Principal.java
+
+- Ponto de entrada do sistema
+- Gerencia leitura de parâmetros e saída
+
+### 📁 AnalisadorSemantico.java
+- Implementa a lógica principal
+- Percorre a AST e aplica regras
+
+### 📁 Escopos.java
+- Gerencia pilha de escopos
+- Controla visibilidade de variáveis
+### 📁 TabelaDeSimbolos.java
+- Armazena nomes, tipos e metadados
