@@ -1,5 +1,3 @@
-// Customização das mensagens de erro para baterem exatamente com os casos de teste da UFSCar (ex: "erro sintatico proximo a...").
-
 package br.ufscar.dc.compiladores;
 
 import org.antlr.v4.runtime.BaseErrorListener;

@@ -1,20 +1,17 @@
-// Captura de argumentos de linha de comando para leitura e escrita em arquivos conforme especificação.
-// Configuração de Charset UTF-8 para garantir compatibilidade de caracteres especiais.
-
 package br.ufscar.dc.compiladores.alguma.lexico;
 
 import java.io.PrintWriter;
-import java.nio.charset.StandardCharsets;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
+import org.antlr.v4.runtime.tree.ParseTree;
+import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import br.ufscar.dc.compiladores.AlgumaLexer;
 import br.ufscar.dc.compiladores.AlgumaParser;
 import br.ufscar.dc.compiladores.MeuErrorListener;
 
 public class Principal {
     public static void main(String[] args) {
-        // Usamos UTF-8 e PrintWriter sem autoflush para controle total
         try (PrintWriter pw = new PrintWriter(args[1], "UTF-8")) {
             try {
                 CharStream cs = CharStreams.fromFileName(args[0]);
@@ -25,18 +22,29 @@ public class Principal {
                 parser.removeErrorListeners();
                 parser.addErrorListener(new MeuErrorListener());
 
-                parser.programa();
-                
-                // IMPORTANTE: O professor pode não querer quebra de linha no fim do arquivo
-                pw.println("Fim da compilacao");
+                // Léxico também precisa do listener para pegar CADEIA_NAO_FECHADA etc.
+                lexer.removeErrorListeners();
+                lexer.addErrorListener(new MeuErrorListener());
+
+                ParseTree tree = parser.programa();
+
+                // Se chegou aqui, não houve erro léxico/sintático → roda semântico
+                AnalisadorSemantico semantico = new AnalisadorSemantico();
+                ParseTreeWalker.DEFAULT.walk(semantico, tree);
+
+                for (String erro : semantico.getErros()) {
+                    pw.println(erro);
+                }
 
             } catch (RuntimeException e) {
+                // Erro léxico ou sintático capturado pelo MeuErrorListener
                 pw.println(e.getMessage());
-                // Se o erro persistir, mudaremos este println para print
-                pw.println("Fim da compilacao");
             } catch (Exception e) {
-                // Silencioso
+                // silencioso
             }
+
+            pw.println("Fim da compilacao");
+
         } catch (Exception e) {
             System.err.println("Erro: " + e.getMessage());
         }
